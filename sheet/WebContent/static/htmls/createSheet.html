@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>创建审批单</title>
+		#@commonImport()
+<script type="text/javascript">
+	function addApprover(){
+		$("#addTr").before($("#approveTr").clone());
+	}
+</script>
+	</head>
+	<body onload="getApprovers()">
+		<h2 class="center">新建审批单：</h2><br />
+		<form action="/sheet/createSheet">
+		<table class="table table-bordered center">
+			<tbody>
+				<tr>
+					<td width="20%" style="text-align: right;">申请人</td>
+					<td width="80%">
+						<input type="text" name="applicant" id="applicant" placeholder="请输入申请姓名"/>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right;">申请内容</td>
+					<td>
+						<textarea style="width: 96%;" name="descript" id="descript"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align: right;">备注</td>
+					<td>
+						<textarea style="width: 96%;" name="remark" id="remark"></textarea>
+					</td>
+				</tr>
+				<tr id="approveTr">
+					<td style="text-align: right;">审批领导</td>
+					<td>
+						<select name="approvers">
+							<option value="wangzhu">wangzhu</option>
+							<option value="zhangsan">zhangsan</option>
+							<option value="lisi">lisi</option>
+						</select>
+					</td>
+				</tr>
+				<tr id="addTr">
+					<td colspan="2">
+						<input type="button" class="btn btn-primary" style="margin: auto 40%;" value="增加一级审批" onclick="addApprover()"/>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="center">
+			<input class="btn btn-primary" type="submit" value="提  交"/>
+		</div>
+		</form>
+	</body>
+</html>

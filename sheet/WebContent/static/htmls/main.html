@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN"
+"http://www.w3.org/TR/html4/strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title></title>
+	#@commonImport()
+	</head>
+	<body>
+		<h4 style="margin-left: 10%;">欢迎您，#(user.name??)!</h4>
+		<br />
+		<div style="margin-left: 10%;">
+			<a href="/sheet/getMyAppoveSheets">我的申请单</a>
+			<a href="/sheet/gotoCreateSheetPre">创建审批单</a>
+		</div>
+		<br />
+		<h2 style="margin-left: 10%;">等待您审批的审批单：</h2>
+		<table class="table table-bordered" style="width: 80%;margin-left: 10%; margin-right: 10%;">
+			<thead>
+				<th>申请人</th>
+				<th>申请事宜</th>
+				<th>备注</th>
+				<th>申请时间</th>
+				<th>下一个审批人</th>
+				<th>审批进度</th>
+				<th>操作</th>
+			</thead>
+			#for(sheet : sheets)
+			<tr>
+				<td>#(sheet.applicant??)</td>
+				<td>#(sheet.descript??)</td>
+				<td>#(sheet.remark??)</td>
+				<td>#(sheet.createTime??)</td>
+				<td>#(sheet.currentApprover??)</td>
+				<td>#(sheet.nextIndex??)</td>
+				<td><a href="/sheet/getSheetDetail?id=#(sheet.id)">查看详情</a></td>
+			</tr>
+			#end
+		</table>
+		
+		
+	</body>
+</html>

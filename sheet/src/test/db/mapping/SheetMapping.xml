@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace = "test.db.mapping.SheetMapper">
+	<resultMap type="Map" id="user">
+		<result column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="password" property="password"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+    <select id = "getAllAproveSheetByUserName" resultMap="user" parameterType="Map">
+        select u.id, u.name, u.password, u.remark from `user` u where u.name = #{userName} and u.password = #{password}
+    </select>
+    
+    <insert id="saveSheet" parameterType="Map" keyProperty="id">
+		insert into approvesheet(applicant, descript, version, status, nextIndex, approvers, currentApprover, remark, createTime)
+		values(#{applicant}, #{descript}, #{version}, #{status}, #{nextIndex}, #{approvers}, #{currentApprover}, #{remark}, now())    
+    </insert>
+    
+	<resultMap type="Map" id="sheet">
+		<result column="id" property="id"/>
+		<result column="applicant" property="applicant"/>
+		<result column="descript" property="descript"/>
+		<result column="createTime" property="createTime"/>
+		<result column="endTime" property="endTime"/>
+		<result column="version" property="version"/>
+		<result column="status" property="status"/>
+		<result column="nextIndex" property="nextIndex"/>
+		<result column="approvers" property="approvers"/>
+		<result column="currentApprover" property="currentApprover"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+    <select id="querySheetByUserName" parameterType="String" resultMap="sheet">
+    	select a.id, a.applicant, cast(a.descript as char) as descript, a.createTime, a.endTime, a.version, a.status, a.nextIndex, a.approvers,
+    	a.currentApprover, cast(a.remark as char)as remark from approvesheet a where a.applicant = #{userName} 
+    </select>
+    <select id="querySheetByCurrentApprover" parameterType="String" resultMap="sheet">
+    	select a.id, a.applicant, cast(a.descript as char) as descript, a.createTime, a.endTime, a.version, a.status, a.nextIndex, a.approvers,
+    	a.currentApprover, cast(a.remark as char)as remark from approvesheet a where a.currentApprover = #{userName} 
+    </select>
+    <select id="querySheetBySheetId" parameterType="Integer" resultMap="sheet">
+    	select a.id, a.applicant, cast(a.descript as char) as descript, a.createTime, a.endTime, a.version, a.status, a.nextIndex, a.approvers,
+    	a.currentApprover, cast(a.remark as char)as remark from approvesheet a where a.id = #{id} 
+    </select>
+    
+    <insert id="addApproveRecord" parameterType="Map">
+		insert into approve_record(approve_sheet_id, approver, approval_opinion, status, remark, approveTime)
+		values(#{approve_sheet_id}, #{approver}, #{approval_opinion}, #{status}, #{remark}, now())    
+    </insert>
+    
+    <update id="updateSheetProcess" parameterType="Map">
+    	update approvesheet t set t.status = #{status}, t.currentApprover = #{currentApprover} 
+    	<if test="status != 9">
+    	, t.nextIndex = t.nextIndex+1 
+    	</if>
+    	where t.id = #{approve_sheet_id} and currentApprover = #{approver} 
+    </update>
+    
+    
+    <resultMap type="Map" id="record">
+		<result column="id" property="id"/>
+		<result column="approve_sheet_id" property="approve_sheet_id"/>
+		<result column="approver" property="approver"/>
+		<result column="approval_opinion" property="approval_opinion"/>
+		<result column="status" property="status"/>
+		<result column="remark" property="remark"/>
+		<result column="approveTime" property="approveTime"/>
+	</resultMap>
+    <select id="queryRecordBySheetId" parameterType="Integer" resultMap="record">
+    	select a.id, a.approve_sheet_id, cast(a.approval_opinion as char) as approval_opinion, a.approver,
+    	 a.status, a.approveTime, cast(a.remark as char)as remark from approve_record a where a.approve_sheet_id = #{id} 
+    </select>
+</mapper>

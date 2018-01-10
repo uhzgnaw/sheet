@@ -1,0 +1,101 @@
+body {
+	margin: 0;
+	font-family: "微软雅黑", Helvetica, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 20px;
+	color: #9ACFEA;
+	background-color: transparent;
+}
+.outerContainer{
+	width: 90%;
+	height: 600px;
+	margin: 0 5% 0 5%;
+}
+.main-header{
+	margin: 0 0 auto 0;
+	width: 100%;
+	height: 10%;
+	background-color: #008080;
+	border-width: 0px;
+}
+.main-left{
+	float: left;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+	overflow-y: auto;
+	border-width: 0px;
+}
+.main-right{
+	float: left;
+	width: 80%;
+	height: 90%;
+	background-color: #678CB1;
+	border-width: 0px;
+}
+.main-frame{
+	float: left;
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+.menu1{ /*一级菜单*/
+	margin-left: 0;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu1 div{ /*一级菜单*/
+	margin-left: 10%;
+	width: 90%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu2_unfold{	/*二级菜单*/
+	margin-left: 10%;
+	width: 90%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu2_fold{	/*二级菜单*/
+	display: none;
+	margin: 0 auto 0 0;
+	float: left;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu3_unfold{	/*三级菜单*/
+	margin-left: 20%;
+	width: 80%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu3_fold{	/*三级菜单*/
+	display: none;
+	margin: 0 auto 0 0;
+	width: 100%;
+	height: auto;
+	background-color: white;
+	overflow-x: hidden;
+}
+.menu_a{
+	text-decoration: none;
+}
+.menu1_div{
+	margin-top: 5px;
+	cursor: hand;
+}
+.menu2_div{
+	margin-top: 5px;
+	cursor: hand;
+}
+.menu3_div{
+	margin-top: 5px;
+	cursor: hand;
+}

@@ -1,0 +1,713 @@
+.jCalWrapper {
+	display:block; 
+	padding:5px; 
+	background:#E3E3E3; 
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px; 
+	border:1px solid #888;
+}
+
+/* default dimensions and justification for each month including title */
+.jCal {
+	/* each day width + border-left + border-right */
+	width:224px;
+	height:21px;
+	padding-top: 3px;
+	text-align:center;
+	vertical-align:middle;
+	background: #3a90ff;
+}
+/* default dimensions and justification for each month not including title */
+.jCalMo {
+	width:224px;		/* each day width + border-left + border-right */
+	float:left;
+	overflow:visible;
+	height:100%;
+	padding-right:2px;
+	padding-left:2px;
+	white-space:nowrap;
+}
+/* top month display block - i.e. January */
+.jCal .month, .jCal .month .monthYear {
+	line-height:16px;
+	height:16px;
+	text-align:center;
+	vertical-align:bottom;
+	font-family:Tahoma;
+	font-size:8pt;
+	color:#000000;
+	cursor:pointer;
+	float:left;
+}
+/* year per calendar style - includes left/right padding and alignment */
+.jCal .month .monthYear {
+	float: none;
+	display: inline;
+	padding-left:2px;
+	padding-right:2px;
+	width:156px;
+}
+
+.jCal .month {
+	width:160px;
+	margin: 0px;
+	padding: 0px;
+}
+
+/* day block dimensions and style - for all day blocks */
+.jCalMo .dow, .jCalMo .day, .jCalMo .pday, .jCalMo .aday, .jCalMo .overDay, .jCalMo .invday, .jCalMo .selectedDay {
+	width:30px;
+	font-family:Tahoma;
+	font-size:8pt;
+	color:#000000;
+	border-right:1px solid #CCC;
+	border-bottom:1px solid #CCC;
+	border-left:1px solid #EEE;
+	text-align:center;
+	cursor:default;
+	float:left;
+}
+/* day of week header specific style */
+.jCalMo .dow {
+	background:#EEE url(images/canvas_cal_week.gif) bottom repeat-x;
+	border-bottom:0px;
+}
+/* actual calendar day default style */
+.jCalMo .day, .jCalMo .invday {
+	height:30px;
+	text-align:center;
+}
+/* selectable calendar day specific style */
+.jCalMo .day {
+	cursor:pointer;
+	background:#FFF;
+}
+/* blacked-out calendar day specific style */
+.jCalMo .invday {
+	color:#808080;
+	background:#eeeeee;
+	text-decoration:line-through;
+}
+/* previous and subsequent months calendar day specific style */
+.jCalMo .pday, .jCalMo .aday {
+	height:30px;
+	background:#e3e3e3;
+	color:#CCC;
+}
+/* selected day */
+.jCalMo .selectedDay {
+	color:#FFF;
+	/* must use rgb() syntax for jquery.color.js compliance */
+	background:rgb(0, 143, 214);
+}
+/* mouseover hilighted selectable day */
+.jCalMo .overDay {
+	color:#FFF;
+	/* must use rgb() syntax for jquery.color.js compliance */
+	background:rgb(0, 102, 153);
+}
+/* left month navigation button - no need to change */
+.jCalMo .jCal .icon.left {
+	width:16px;
+	height:16px;
+	vertical-align:middle;
+	cursor:pointer;
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+/* right month navigation button - no need to change */
+.jCalMo .jCal .icon.right {
+	width:16px;
+	height:16px;
+	/*vertical-align:middle;*/
+	cursor:pointer;
+	float:right;
+	margin:0px;
+	padding:0px;
+}
+/* left month navigation button - no need to change */
+.jCalMo .jCal .icon.up {
+	width:16px;
+	height:16px;
+	/*vertical-align:middle;*/
+	cursor:pointer;
+	float:left;
+	margin:0px;
+	padding:0px;
+}
+/* right month navigation button - no need to change */
+.jCalMo .jCal .icon.down {
+	width:16px;
+	height:16px;
+	/*vertical-align:middle;*/
+	cursor:pointer;
+	float:right;
+	margin:0px;
+	padding:0px;
+}
+
+.jCalMo .jCal .icon.empty {
+	width:16px;
+	height:16px;
+	/*vertical-align:middle;*/
+	float:left;
+}
+
+/* no need to change - this is for carousel opacity */
+.jCalMask, .jCalMove {
+	position:absolute;
+	overflow:hidden;
+}
+
+/* panes */
+.tabpanes {
+	/*background: url(/tools/img/tabs/blue_panes.jpg) no-repeat 0 0;*/
+	width:100%;
+	/*height:31em;*/ /* need calc */
+
+	position:relative;
+	overflow:hidden;
+	clear:both;	
+	margin:0;
+	padding:0;
+}
+
+/* single pane */
+.tabpanes .pane {
+	display:none;		
+	margin:0;
+	float:left;
+	display:block;
+	width: 97%;
+	padding:0;
+	overflow:auto;
+	_overflow:scroll;
+	/*width:65em;*/ /* need calc */
+}
+
+/* wrapper element for the items */
+.tabpanes .items {
+	width:100%;
+	position:absolute;
+	clear:both;
+	margin:0;
+	padding:0;
+	overflow:auto;
+}
+
+
+/* root element for tabs */
+.tabs {
+	/* dimensions */
+	/*width:760px;*/
+	height:2em !important;
+	margin:0 !important; 
+	padding:0;	
+	/* IE6 specific branch (prefixed with "_") */
+	_margin-bottom:-2px;
+}
+
+/* single tab */
+.tabs li { 
+	float:left; 
+	margin:0; 
+	padding:0; 
+	text-indent:0; 
+	list-style-type:none;
+}
+
+/* a- tag inside single tab */
+.tabs a {
+	display:block;
+	/*height: 2em;   
+	width: 189px;*/
+	line-height:2em;	
+	padding:0 1em;
+	margin:0;
+	
+	/* font decoration */
+	color:#000;
+	font-size:1em;
+	text-align:center;
+	text-decoration:none;
+}
+ 
+/* mouseover state */
+.tabs a:hover 		{ 
+	color:red;
+}
+
+.tabs a {
+	cursor:pointer; 
+	color:#000;
+	background: #ebf4fb;
+	border: #b7ddf2 solid 1px;
+	border-bottom-style: none;
+}
+
+/* for IE6 a background is not work, so set here */
+.tabs li {
+	background: #ebf4fb;
+}
+
+/* currently selected tabs */
+.tabs a.active		{ 
+	cursor:default; 
+	color:#444;
+	background: #b7ddf2;
+}
+
+
+
+.icon {
+	background-image: url(images/icons.png);
+	background-repeat: no-repeat;
+	/*filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/icons.png', sizingMethod='scale');
+	*/background-position: center right;
+	width: 16px;
+	height: 16px;
+	margin: 0px;
+	display: inline-block;
+}
+
+/* empty icon */
+.icon.empty {
+	background-position: 16px 0px;
+}
+
+/* ===== 1 line ===== */
+.icon.home {
+	background-position: 0px 0px;
+	float: left;
+	margin-top: -2px;
+}
+
+/* ===== 2 line ===== */
+.icon.info {
+	background-position: 0px -16px;
+}
+.icon.ihint {
+	background-position: -16px -16px;
+}
+.icon.iinfo {
+	background-position: -32px -16px;
+}
+.icon.iwarning {
+	background-position: -48px -16px;
+}
+.icon.ierror {
+	background-position: -64px -16px;
+}
+.icon.help {
+	background-position: -80px -16px;
+}
+.icon.error {
+	background-position: -96px -16px;
+}
+.icon.heart {
+	background-position: -112px -16px;
+}
+.icon.question {
+	background-position: -128px -16px;
+}
+.icon.down {
+	background-position: -144px -16px;
+}
+.icon.left {
+	background-position: -160px -16px;
+}
+.icon.right {
+	background-position: -176px -16px;
+}
+.icon.up {
+	background-position: -192px -16px;
+}
+.icon.yes {
+	background-position: -208px -16px;
+}
+.icon.no {
+	background-position: -224px -16px;
+}
+.icon.plus {
+	background-position: -240px -16px;
+}
+.icon.minus {
+	background-position: -256px -16px;
+}
+.icon.edit {
+	background-position: -272px -16px;
+}
+.icon.save {
+	background-position: -288px -16px;
+}
+.icon.star {
+	background-position: -304px -16px;
+}
+
+/* ===== 3 line ===== */
+.icon.search {
+	background-position: 0px -32px;
+}
+.icon.date {
+	background-position: -16px -32px;
+}
+.icon.calendar {
+	background-position: -32px -32px;
+}
+
+/* ===== 4 line ===== */
+.icon.menu_item {
+	float: left;
+	background-position: 0px -48px;
+}
+.icon.arrow_r {
+	background-position: -16px -48px;
+	float: left;
+	margin-top: -2px;
+}
+.icon.menu_down {
+	margin: -2px;
+	background-position: -32px -48px;
+}
+
+.icon.tip {
+	background-position: -48px -48px;
+}
+
+/* ===== 5 line ===== */
+.icon.light {
+	background-position: 0px -64px;
+}
+.icon.light:hover {
+	background-position: 0px -224px; /* + 160px */
+}
+
+/* ===== 6 line ===== */
+.icon.right1 {
+	background-position: 0px -80px;
+}
+.icon.left1 {
+	background-position: -16px -80px;
+}
+.icon.up1 {
+	background-position: -32px -80px;
+}
+.icon.down1 {
+	background-position: -48px -80px;
+}
+
+.jVal {
+	position: absolute;
+	z-index: 1110;
+}
+.jValblank {
+	border: 1px solid #ccc;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+}
+.jValSpacer {
+	position: absolute;
+	width: 0px;
+	float: left;
+}
+.jValSpacercover {
+	background: #eee;/* url(eeGrad2.gif) bottom repeat-x;*/
+	border: 1px solid #ccc;
+	border-right: 0px;
+}
+.jValSpacerpod {
+	background: #f0f2f5;/* url(f0f2f5grad.gif) bottom repeat-x;*/
+	border: 1px solid #ccc;
+	border-right: 0px;
+}
+.jValSpacerblank {
+	height: 16px; !important;
+	opacity: 0.6;
+}
+.jVal .iconwrap {
+	float: left;
+}
+.jVal .iconwrapcover {
+	background: #eee;/* url(eeGrad2.gif) bottom repeat-x;*/
+	border: 1px solid #ccc;
+	border-width: 1px 0px;
+	width: 20px;
+	text-align: left;
+}
+.jVal .iconwrappod {
+	background: #f0f2f5;/* url(f0f2f5grad.gif) bottom repeat-x;*/
+	border: 1px solid #ccc;
+	border-left: 0px;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+	width: 20px;
+	text-align: left;
+}
+.jVal .iconwrapblank {
+	background: #f0f2f5;
+	height: 16px !important;
+	padding-left: 5px;
+}
+.jVal .iconwrap .icon.ierror {
+	height: 16px;
+	width: 16px;
+	display: inline-block;
+}
+.jVal .iconwrapcover .icon.ierror, .jVal .iconwrappod .icon.ierror, .jVal .iconwrap .icon.ierror{
+	margin-top: 6px;
+}
+.jVal .iconwrapblank .icon.ierror{
+	margin-top: 0px;
+}
+.jVal .messagewrap {
+	color: red;
+	vertical-align: middle;
+	white-space: nowrap;
+	float: left;
+	padding-right: 5px;
+}
+.jVal .messagewrap .messagecover, .jVal .messagewrap .messagepod, .jVal .messagewrap .message{
+	display: inline;
+	line-height: inherit;
+}
+.jVal .messagewrapcover {
+	background: #eee;/* url(eeGrad2.gif) bottom repeat-x;*/
+	border: 1px solid #ccc;
+	border-left: 0px;
+	-moz-border-radius-topright: 3px;
+	-moz-border-radius-bottomright: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-webkit-border-bottom-right-radius: 3px;
+}
+.jVal .messagewrappod {
+	opacity: 0.8;
+	background: transparent;/*#fff;*/
+	padding: 2px 5px;
+}
+.jVal .messagewrapblank {
+	background: #f0f2f5;
+	padding: 2px 5px;
+}
+.jVal.jValblank{
+	margin-top: -4px;
+}
+
+
+
+/* ===== tooltip styles ===== */
+.tooltip { 
+	position:absolute; 
+	background:#252122; /*url(../images/bg-tooltip.gif) top repeat-x;*/
+	padding:0em 0.5em; 
+	font-size:0.95em; 
+	line-height:1em; 
+	border:2px solid #fff; 
+	-moz-border-radius:10px; 
+	-webkit-border-radius:10px; 
+	border-radius:10px; 
+	-o-box-shadow:0 0 8px #aaa; 
+	-moz-box-shadow:0 0 8px #aaa; 
+	-webkit-box-shadow:0 0 8px #aaa; 
+	box-shadow:0 0 8px #aaa; 
+	width:250px; 
+	color:#fff; 
+	opacity:.9; 
+	z-index: 9999; /* = expose mask + 1 = exposed form */
+}
+.hidden { 
+	display: none; 
+}
+
+/*======= Overlay ========*/  
+#modalOverlay {
+	background-color:#000; cursor:wait;
+}    
+/* Container */  
+#modalContainer {
+	width:500px; 
+	left:50%; 
+	top:5%; 
+	margin-left:-250px; 
+	background-color:#fff; 
+	border:3px solid #ccc;
+}  
+#modalContainer a.modalCloseImg {
+	background:url(images/close.png) no-repeat; 
+	width:25px; 
+	height:29px; 
+	display:inline; 
+	z-index:3200; 
+	position:absolute; 
+	top:-15px; 
+	right:-18px; 
+	cursor:pointer; 
+	display:none
+}  
+#modalContainer #basicModalContent {
+	padding:8px;
+}  
+
+/*===== autocomplete =====*/
+.autocomplete-w1 { 
+	background:url(images/shadow.png) no-repeat bottom right; 
+	position:absolute; 
+	top:0px; 
+	left:0px; 
+	margin:8px 0 0 6px; 
+	/* IE6 fix: */ _background:none; _margin:0; 
+}
+.autocomplete { 
+	border:1px solid #999; 
+	background:#FFF; 
+	cursor:default; 
+	text-align:left; 
+	max-height:350px; 
+	overflow:auto; 
+	margin:-6px 6px 6px -6px; 
+	/* IE6 specific: */ _height:350px;  _margin:0; _overflow-x:hidden; 
+}
+.autocomplete .selected { 
+	/*background:#F0F0F0; */
+	background-color: #039;
+	color: #fff;
+}
+.autocomplete div { 
+	padding:2px 5px; 
+	white-space:nowrap; 
+}
+.autocomplete strong { 
+	font-weight:normal; 
+	color:#3399FF; 
+}
+.autocomplete_Text{
+	BORDER-BOTTOM: 0px; 
+	BORDER-LEFT: 0px; 
+	PADDING-BOTTOM: 1px; 
+	TEXT-INDENT: 2px; 
+	MARGIN: 1px; 
+	PADDING-LEFT: 1px; 
+	PADDING-RIGHT: 1px; 
+	FONT-FAMILY: sans-serif; 
+	FLOAT: left; 
+	HEIGHT: 16px; 
+	width:198px;
+	FONT-SIZE: 1em; 
+	BORDER-TOP: 0px; 
+	BORDER-RIGHT: 0px; 
+	PADDING-TOP: 1px;
+	line-height:16px;
+}
+.autocomplete_Div{
+	color:#0c3979;
+	height:20px;
+	line-height:20px;
+	border:1px solid #7f97b9;
+	width:222px;
+	float: left;
+}
+.autocomplete_loading {
+	WIDTH: 18px; BACKGROUND: url('images/combo_select_dhx_blue.gif'); FLOAT: right; HEIGHT: 20px;
+}
+.autocomplete_combo{
+	WIDTH: 18px; BACKGROUND: url('images/combo_select_dhx_blue.gif'); FLOAT: right; HEIGHT: 20px; CURSOR: pointer;
+}
+.autocomplete_cursor{
+	cursor:pointer;
+}
+.autocomplete_hide{
+	background-color: #eee;
+}
+.autorow{
+	background-color: #e0eeee;
+}
+
+#tree { margin:2em 0 5em; }
+.tree-checkbox{
+	display:inline-block;
+	width:16px;
+	height:18px;
+	vertical-align:middle;
+}
+.tree-checkbox0{
+	background:url('images/tree_checkbox_0.gif') no-repeat;
+}
+.tree-checkbox1{
+	background:url('images/tree_checkbox_1.gif') no-repeat;
+}
+.tree-checkbox2{
+	background:url('images/tree_checkbox_2.gif') no-repeat;
+}
+.tree { /*font-size:1.5em;*/ }
+.tree,.tree ul,.tree li { list-style:none; margin:0; padding:0; zoom: 1; }
+.tree ul { margin-left:8px; }
+.tree li pre.level1 { border:1px solid #f2eada; background-color:#f6f5ec;}
+.tree li pre { color:#000; padding:.1em 7px .1em 27px; display:block; text-decoration:none; border:1px dashed #fff;white-space: pre;height: 1.6em;text-align: left;width: 90%}
+.tree li pre.tree-parent { background:url(images/icon-folder-open.gif) 5px 50% no-repeat; }
+.tree li pre.tree-parent-collapsed { background:url(images/icon-folder.gif) 5px 50% no-repeat; }
+.tree li pre.tree-parent-indicator { background:url(images/indicator.gif) 5px 50% no-repeat; }
+.tree li pre:hover,.tree li pre.tree-parent:hover,.tree li pre:focus,.tree li pre.tree-parent:focus,.tree li pre.tree-item-active { color:#9d9087; border:1px solid#eee; background-color:#fafafa; -moz-border-radius:4px; -webkit-border-radius:4px; border-radius:4px;}
+.tree li pre:focus,.tree li pre.tree-parent:focus,.tree li pre.tree-item-active { border:1px solid #e2f3fb; background-color:#f2fafd;}
+.tree ul.tree-group-collapsed { display:none; }
+/*.tree li select.hide{border-style:none;background-color: #FFFFFF;margin:-2px;margin-right:-20px;overflow:hidden;}*/
+.tree table td.first{margin-left: 1em; margin-right: 1em; float: none; width: 10em;}
+.tree table td {padding-left: 5px ; padding-right:5px;} 
+.tree table {margin-right: 0.5em; float: none; width: auto; line-height: 1em;border-spacing: 0px;border-spacing:expression(this.cellSpacing=0);border: 0px;padding-bottom: 0.3em;}
+.combox_img{
+	WIDTH: 16px; BACKGROUND: url('images/double-arrow-vert.gif'); FLOAT: right; HEIGHT: 16px; CURSOR: pointer
+}
+.combox_input {
+	border: 1px solid #7f97b9;
+	background-color: white;
+}
+
+.combox_text {
+	vertical-align: middle;
+	position: relative;
+	border: none;
+}
+
+.combox_container {
+	background: white;
+	border: 1px solid silver;
+	overflow: auto
+}
+
+.combox_dpList {
+	text-align:left;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	background-color: #fff
+}
+
+.combox_row {
+	text-indent: 4px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+.combox_row_mouseover {
+	background-color: gray;
+	color: white;
+	text-indent: 4px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+}
+
+.combox_row_mouseout {
+	background-color: white;
+	color: black;
+	text-indent: 4px;
+	height: 20px;
+	line-height: 20px;
+	font-size: 12px;
+}
